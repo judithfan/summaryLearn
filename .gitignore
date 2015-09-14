@@ -28,8 +28,8 @@ node_modules
 .lock-wscript
 
 # add other random stuff to the ignore
-laura_sandbox/jspsych-4.3/*
-laura_sandbox/img/*
+#laura_sandbox/jspsych-4.3/*
+#laura_sandbox/img/*
 
 .DS_Store
 img/*
