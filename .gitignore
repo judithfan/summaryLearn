@@ -32,6 +32,6 @@ node_modules
 #laura_sandbox/img/*
 
 .DS_Store
-img/*
+img/
 jquery-latest.js
-js/*
+js/
