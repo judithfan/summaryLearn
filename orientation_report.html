@@ -1,35 +1,50 @@
 <!doctype html>
 <html>
   <head>
-    <title>My experiment</title>
+    <title>Orientation Report Task</title>
   </head>
   <body>
     <link type="text/css" rel="stylesheet" href="stylesheet.css" media="all"></link>    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="jquery-latest.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.10.4.custom.min.js"></script>
     <script type="text/javascript" src="json2.min.js"></script>
     <script type="text/javascript" src='underscore.js'></script>
+    <script type="text/javascript" src='jquery.rotate.1-1.js'></script>
+    <script type="text/javascript" src='raphael-min.js'></script>
     <script type="text/javascript"> 
 
     // javascript stuff goes here
     $(document).ready(function() {
+      function displayStim() {
+        $('#frame').fadeIn('fast');
+        $('#stim').on('click',rotateStim);
+      };
 
+      function rotateStim() {
+          $("#stim").attr('transform',"rotate(45  100 100)");
+      }
 
+      displayStim();
 
-
-
-
-    }
+    });
     </script>
 
     <!-- in here goes HTML stuff -->
-
-    <!-- elements we need here: -->
-
+    
     <!-- fixationCross -->
-    <!-- triangle -->
 
+    <!-- oriented line -->
+    <div id="frame" style="display:none">
+    <svg width="200" height="200">
+      <rect x="1" y="1" width="199" height="199" fill="none" stroke="none"/>
+      <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
+       <line id="stim" x1="50" y1="100" x2="150" y2="100" transform="rotate(-45  100 100)" />
+      </g>
+      
 
+      
+    </svg>
+    </div>
 
 
   </body>
