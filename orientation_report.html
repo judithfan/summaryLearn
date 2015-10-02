@@ -11,66 +11,100 @@
     <script type="text/javascript" src='underscore.js'></script>
     <script type="text/javascript" src='jquery.rotate.1-1.js'></script>
     <script type="text/javascript" src='raphael-min.js'></script>
+    <script type="text/javascript" src='numeric-1.2.6.min.js'></script>
+    <script type="text/javascript" src='helpers.js'></script>
     <script type="text/javascript"> 
 
     // javascript stuff goes here
     $(document).ready(function() {
+
+      // Here is where we define experiment and display parameters
+      // radius of circle 
+      arrayRadius = 30;
+      // number of items in the memory array
+      numStim = 3;
+      // the orientation range (actually, the upper bound) for items appearing on the same trial
+      orientRange = 90;
+
       function displayStim() {
         $('#frame').fadeIn('fast');
         $('#stimOne').on('click',rotateStim);
         $('#stimTwo').on('click',rotateStim);
         $('#stimThree').on('click',rotateStim);
-      };
+      }
       
-      function sampleOrientation() {	
-		deg = [];
-		for (i = 0; i <= 2; i++) {
-			deg.push(parseInt(Math.random() * 90));
-		}
-		return deg		
-      }                
-
       function rotateStim() {
-      	  deg = sampleOrientation();
+          deg = sampleOrientation(numStim,orientRange);
           $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 100 100)");
           $("#stimTwo").attr('transform',"rotate(" + deg[1].toString() + " 100 100)");
           $("#stimThree").attr('transform',"rotate(" + deg[2].toString() + " 100 100)");
       }
 
-      displayStim();
+      function sampleOrientation(ns,ub) {	
+        // ns = number of stimuli
+        // ub = upper bound on range of orientations
+    		deg = [];
+    		for (i = 0; i <= ns; i++) {
+    			deg.push(parseInt(Math.random() * ub));
+    		}
+    		return deg		
+      }                
 
-    });
-    </script>
+      function linearSpacing(ns) {
+        loci = numeric.linspace(0,360,ns+1);
+        loci.pop();
+        offset = parseInt(Math.random()*Math.ceil(360/ns));
+        loci = _.map(loci,function(num){ return (num + offset)%360});
+        return loci;
+      }
+      
+      function polarToCartesianCoords(l) {
+          // l = array of angles in degrees
+          // first convert degrees to radians
+          radians = _.map(l,function(num) {return num*Math.pi()/180} 
+          // then do trig!
+          // x = r*Math.cos(radians);
+          // y = r*Math.sin(radians);
+          // return x,y
 
-    <!-- in here goes HTML stuff -->
+        }
+    // r*cos(degree[0].toString())
+
+    //   }
+
+    // function sam(numStim) {
+    //   degree = [];
+    //   for (i = 0; i <= numStim; i++) {
+    //     degree.push(Math.random()*180 + 1);
+    //   }
+    //   return degree
+    // }
     
-    <!-- fixationCross -->
-	<!-- circle parameters -->
+
+    displayStim();
+  });
+
+  
+  
+
+
+
+    
+   </script>
+
 	
-	<!--radius of circle -->
-	r == 30px;
-	
-	
-	for (i = 0; i <= 2; i++) {
-		int degree = Math.random()*180 + 1;
-		}
-		return degree
-		
-	}
-	
-	
-    <!-- oriented line -->
+    <!-- oriented lines -->
     <div id="frame" style="display:none">
-    <svg width="200" height="200">
-      <rect x="1" y="1" width="199" height="199" fill="none" stroke="none"/>
+    <svg width="500" height="500">
+      <rect x="1" y="1" width="499" height="499" fill="none" stroke="none"/>
       <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
-       <line id="stimOne" x1="50" y1="100" x2="r*cos(degree[0].toString())" y2="r*sin(degree[0].toString())" transform="rotate(-45  100 100)" />
+       <line id="stimOne" x1="50" y1="90" x2="150" y2="150" transform="rotate(-45  100 100)" />
       </g>
        <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
-       <line id="stimTwo" x1="50" y1="200" x2="r*cos(degree[1].toString()" y2="r*sin(degree[1].toString()" transform="rotate(-45  100 100)" />
+       <line id="stimTwo" x1="50" y1="80" x2="150" y2="150" transform="rotate(-45  100 100)" />
       </g>
-	<g stroke="steelblue" stroke-width="10" stroke-linecap="round">
-       <line id="stimThree" x1="50" y1="200" x2="r*cos(degree[2].toString()" y2="r*sin(degree[2].toString()" transform="rotate(-45  100 100)" />
+	   <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
+       <line id="stimThree" x1="50" y1="50" x2="150" y2="150" transform="rotate(-45  100 100)" />
       </g>
       
     </svg>
