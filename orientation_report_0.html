@@ -74,6 +74,14 @@
       }
 
       // Laura will generate pairs of coordinates for each line segment and return return [x1,y1,x2,y2];
+	function getEndpoints(deg, segLen) {
+		x1 = ((segLen/2)*Math.cos(deg));
+		y2 = ((segLen/2)*Math.sin(deg));
+		x1 = ((-segLen/2)*Math.cos(deg));
+		y1 = ((-segLen/2)*Math.sin(deg));
+		return [x1, y1, x2, y2];
+	}
+
 
       // Judy will take those coordinates and apply them to the html elements #stimOne, #stimTwo, # stimThree 
       // coords = laurasfn(deg,segLen);
