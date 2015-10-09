@@ -96,3 +96,47 @@ function reverseArray(array) {
     }
     return array;
 }
+
+// BELOW FIND ORIENTATION_REPORT - SPECIFIC HELPER FUNCTIONS
+
+  function linearSpacing(ns) {
+    console.log('HIHIIIIII')
+    loci = numeric.linspace(0,360,ns+1);
+    loci.pop();
+    console.log(loci);
+    offset = parseInt(Math.random()*Math.ceil(360/ns));
+    console.log(offset);
+    loci = _.map(loci,function(num){ return (num + offset)%360});
+    return loci;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
