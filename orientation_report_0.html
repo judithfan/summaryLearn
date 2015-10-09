@@ -28,14 +28,14 @@
         $('#stimOne').on('click',rotateStim);
         $('#stimTwo').on('click',rotateStim);
         $('#stimThree').on('click',rotateStim);
-      }
-      
+      }      
       function rotateStim() {
           deg = sampleOrientation(numStim,orientRange);
-          $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 100 100)");
-          $("#stimTwo").attr('transform',"rotate(" + deg[1].toString() + " 100 100)");
-          $("#stimThree").attr('transform',"rotate(" + deg[2].toString() + " 100 100)");
+          $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 250 250)");
+          $("#stimTwo").attr('transform',"rotate(" + deg[1].toString() + " 250 250)");
+          $("#stimThree").attr('transform',"rotate(" + deg[2].toString() + " 250 250)");
       }
+      
       function sampleOrientation(ns,ub) {	
         // ns = number of stimuli
         // ub = upper bound on range of orientations
@@ -44,40 +44,57 @@
     			deg.push(parseInt(Math.random() * ub));
     		}
     		return deg		
-      }                
-      function linearSpacing(ns) {
+      }  
+                    
+      function linearSpacing(ns) { // "ns" is the number of stimuli
         loci = numeric.linspace(0,360,ns+1);
         loci.pop();
         offset = parseInt(Math.random()*Math.ceil(360/ns));
         loci = _.map(loci,function(num){ return (num + offset)%360});
-        return loci;
+        return loci;   // "loci" is an array of angular positions (in degrees)      
+      }      
+       
+//       function polarToCartesianCoords_allAngles(l) {
+//           // l = array of angles in degrees
+//           x = [];
+//           y = [];
+//           for (i = 0; i < ns; i++) {
+//           // first convert degrees to radians
+//            	radians = _.map(l,function(num) {return num*Math.pi()/180}); 
+//           // then do trig!
+//           	x[i] = arrayRadius*Math.cos(radians);
+//           	y[i] = arrayRadius*Math.sin(radians);
+//           }
+//           return [x,y];
+//         }
         
-      }
-      
-      l = [loci];
-      
-      
-      function polarToCartesianCoords(l) {
-          // l = array of angles in degrees
-          x = [];
-          y = [];
-          for (i = 0; i < ns; i++) {
-          // first convert degrees to radians
-           	radians = _.map(l,function(num) {return num*Math.pi()/180}); 
-          // then do trig!
-          	x[i] = arrayRadius*Math.cos(radians);
-          	y[i] = arrayRadius*Math.sin(radians);
-          }
+        function polarToCartesianCoords(l) {
+        	// l = single angle in degrees
+        	radians = l*Math.pi()/180;
+        	x = radians*Math.cos(radians);
+        	y = radians*Math.sin(radians);
+        	return [x,y];
         }
         
-    x1 = x[(numStim - 3).toString;
-    x2 = x[(numStim - 2)].toString;
-    x3 = x[(numStim - 1)].toString;
-    y1 = y[(numStim - 3).toString;
-    y2 = y[(numStim - 2)].toString;
-    y3 = y[(numStim - 1)].toString;
+        
+        
+        
+		//     x1 = x[(numStim - 3).toString;
+		//     x2 = x[(numStim - 2)].toString;
+		//     x3 = x[(numStim - 1)].toString;
+		//     y1 = y[(numStim - 3).toString;
+		//     y2 = y[(numStim - 2)].toString;
+		//     y3 = y[(numStim - 1)].toString;
     	
-    }
+		// l = [loci];
+		// l = linearSpacing(3);
+		// polarToCartesianCoords(l)
+         	
+    	
+     displayStim();
+
+    });
+    
     // r*cos(degree[0].toString())
     //   }
     // function sam(numStim) {
@@ -88,8 +105,7 @@
     //   return degree
     // }
     
-    displayStim();
-  });
+//   });
   
   
     
@@ -98,19 +114,19 @@
 	
     <!-- oriented lines -->
     <div id="frame" style="display:none">
-    <svg width="500" height="500">
-      <rect x="1" y="1" width="499" height="499" fill="none" stroke="none"/>
-      <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
-       <line id="stimOne" x1="50" y1="90" x2="x[(numStim - 3)].toString " y2="y[0].toString" transform="rotate(-45  100 100)" />
-      </g>
-       <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
-       <line id="stimTwo" x1="50" y1="80" x2="x[(numStim - 2)].toString" y2="y[1].toString" transform="rotate(-45  100 100)" />
-      </g>
-	   <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
-       <line id="stimThree" x1="50" y1="50" x2="x[(numStim - 1)].toString" y2="" transform="rotate(-45  100 100)" />
-      </g>
-      
-    </svg>
+		<svg width="500" height="500">
+		  <rect x="1" y="1" width="499" height="499" fill="none" stroke="none"/>
+		  <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
+		   <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  250 250)" />
+		  </g>
+		   <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
+		   <line id="stimTwo" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 250)" />
+		  </g>
+		   <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
+		   <line id="stimThree" x1="350" y1="50" x2="450" y2="50" transform="rotate(0 250 250)" />
+		  </g>
+	  
+		</svg>
     </div>
 
 
