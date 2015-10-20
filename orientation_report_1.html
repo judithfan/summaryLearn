@@ -72,21 +72,48 @@
       }
 
       // Laura will generate pairs of coordinates for each line segment and return return [x1,y1,x2,y2];
-
+      function getEndpoints(deg, segLen) {
+		x1 = ((segLen/2)*Math.cos(deg));
+		y2 = ((segLen/2)*Math.sin(deg));
+		x1 = ((-segLen/2)*Math.cos(deg));
+		y1 = ((-segLen/2)*Math.sin(deg));
+		return [x1, y1, x2, y2];
+		}
 
 
       // Judy will take those coordinates and apply them to the html elements #stimOne, #stimTwo, # stimThree 
       // coords = getEndpoints(deg,segLen);
+      
       function positionStimOne(l) {
         // local coords taken in, and global coords returned out
         posCoords = polarToCartesianCoords(arrayRadius,l);
         console.log(posCoords);
-        // localEndpoints = getEndpoints()
-        // globalEndpoints = localEndpoints + posCoords;
-        // $("#stimOne").attr('x1',globalEndpoints[0].toString);
-        // $("#stimOne").attr('y1',globalEndpoints[1].toString);
-        // $("#stimOne").attr('x2',globalEndpoints[2].toString);
-        // $("#stimOne").attr('y2',globalEndpoints[3].toString);
+        localEndpoints = getEndpoints()
+        globalEndpoints = localEndpoints + posCoords;
+        $("#stimOne").attr('x1',globalEndpoints[0].toString);
+        $("#stimOne").attr('y1',globalEndpoints[1].toString);
+        $("#stimOne").attr('x2',globalEndpoints[2].toString);
+        $("#stimOne").attr('y2',globalEndpoints[3].toString);
+      }
+          function positionStimTwo(l) {
+        posCoords = polarToCartesianCoords(arrayRadius,l);
+        console.log(posCoords);
+        localEndpoints = getEndpoints()
+    	globalEndpoints = localEndpoints + posCoords;
+        $("#stimTwo").attr('x1',globalEndpoints[0].toString);
+        $("#stimTwo").attr('y1',globalEndpoints[1].toString);
+        $("#stimTwo").attr('x2',globalEndpoints[2].toString);
+        $("#stimTwo").attr('y2',globalEndpoints[3].toString);
+      }
+          function positionStimThree(l) {
+        posCoords = polarToCartesianCoords(arrayRadius,l);
+        console.log(posCoords);
+        localEndpoints = getEndpoints()
+        globalEndpoints = localEndpoints + posCoords;
+        $("#stimThree").attr('x1',globalEndpoints[0].toString);
+        $("#stimThree").attr('y1',globalEndpoints[1].toString);
+        $("#stimThree").attr('x2',globalEndpoints[2].toString);
+        $("#stimThree").attr('y2',globalEndpoints[3].toString);
       }
       
       // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
