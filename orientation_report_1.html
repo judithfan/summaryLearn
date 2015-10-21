@@ -18,7 +18,7 @@
     $(document).ready(function() {
       // Here is where we define experiment and display parameters
       // radius of circle 
-      arrayRadius = 30;
+      arrayRadius = 250;
       // number of items in the memory array
       numStim = 3;
       // the orientation range (actually, the upper bound) for items appearing on the same trial
@@ -62,64 +62,63 @@
         return loci;   // "loci" is an array of angular positions (in degrees)      
       }      
        
-      function polarToCartesianCoords(l,r) {
-      	// l = single angle in degrees
+      function polarToCartesianCoords(l) {
+      	// l = single angle in degrees corresponding to the angular position of the line segment in the memory array, l = "loci"
         // r = radius
       	radians = l*Math.PI/180;
-      	x = r*Math.cos(radians);
-      	y = r*Math.sin(radians);
+        console.log(radians);
+      	x = arrayRadius*Math.cos(radians) + 350;
+      	y = arrayRadius*Math.sin(radians) + 350;
       	return [x,y];
       }
 
       // Laura will generate pairs of coordinates for each line segment and return return [x1,y1,x2,y2];
       function getEndpoints(deg, segLen) {
-		x1 = ((segLen/2)*Math.cos(deg));
-		y2 = ((segLen/2)*Math.sin(deg));
-		x1 = ((-segLen/2)*Math.cos(deg));
-		y1 = ((-segLen/2)*Math.sin(deg));
-		return [x1, y1, x2, y2];
-		}
-
+    		x1 = ((segLen/2)*Math.cos(deg));
+    		y1 = ((segLen/2)*Math.sin(deg));
+    		x2 = ((-segLen/2)*Math.cos(deg));
+    		y2 = ((-segLen/2)*Math.sin(deg));
+    		return [x1, y1, x2, y2];
+		  }
 
       // Judy will take those coordinates and apply them to the html elements #stimOne, #stimTwo, # stimThree 
       // coords = getEndpoints(deg,segLen);
       
       function positionStimOne(l) {
         // local coords taken in, and global coords returned out
-        posCoords = polarToCartesianCoords(arrayRadius,l);
+        posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
         console.log(posCoords);
-        localEndpoints = getEndpoints()
+        // get orientation of this line
+        deg = sampleOrientation(0,orientRange);
+        console.log("deg is")
+        console.log(deg);
+        // $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " " +  posCoords[0].toString() + " " + posCoords[1].toString() + ")");
+        $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 100 50)");
+        localEndpoints = getEndpoints(deg,segLen);
+        console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
-        $("#stimOne").attr('x1',globalEndpoints[0].toString);
-        $("#stimOne").attr('y1',globalEndpoints[1].toString);
-        $("#stimOne").attr('x2',globalEndpoints[2].toString);
-        $("#stimOne").attr('y2',globalEndpoints[3].toString);
+        globalEndpoints = [posCoords[0]+localEndpoints[0], 
+                           posCoords[1]+localEndpoints[2],
+                           posCoords[0]+localEndpoints[1],
+                           posCoords[1]+localEndpoints[3]]
+        console.log(globalEndpoints);
+        $("#stimOne").attr('x1',globalEndpoints[0].toString());
+        $("#stimOne").attr('y1',globalEndpoints[1].toString());
+        $("#stimOne").attr('x2',globalEndpoints[2].toString());
+        $("#stimOne").attr('y2',globalEndpoints[3].toString());
       }
           function positionStimTwo(l) {
-        posCoords = polarToCartesianCoords(arrayRadius,l);
-        console.log(posCoords);
-        localEndpoints = getEndpoints()
-    	globalEndpoints = localEndpoints + posCoords;
-        $("#stimTwo").attr('x1',globalEndpoints[0].toString);
-        $("#stimTwo").attr('y1',globalEndpoints[1].toString);
-        $("#stimTwo").attr('x2',globalEndpoints[2].toString);
-        $("#stimTwo").attr('y2',globalEndpoints[3].toString);
+            // blank placeholder
       }
           function positionStimThree(l) {
-        posCoords = polarToCartesianCoords(arrayRadius,l);
-        console.log(posCoords);
-        localEndpoints = getEndpoints()
-        globalEndpoints = localEndpoints + posCoords;
-        $("#stimThree").attr('x1',globalEndpoints[0].toString);
-        $("#stimThree").attr('y1',globalEndpoints[1].toString);
-        $("#stimThree").attr('x2',globalEndpoints[2].toString);
-        $("#stimThree").attr('y2',globalEndpoints[3].toString);
+            // blank placeholder
       }
       
       // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
       displayStim();
       loci = linearSpacing(numStim);
-      positionStim(loci[0]);
+      console.log(loci);
+      positionStimOne(loci[0]);
 
     });
 
@@ -130,8 +129,8 @@
 	
     <!-- oriented lines -->
     <div id="frame" style="display:none">
-		<svg width="500" height="500">
-		  <rect x="1" y="1" width="499" height="499" fill="none" stroke="none"/>
+		<svg width="700" height="700">
+		  <rect x="1" y="1" width="699" height="699" fill="none" stroke="none"/>
 		  <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
 		   <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  100 50)" />
 		  </g>
