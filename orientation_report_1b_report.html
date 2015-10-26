@@ -18,7 +18,7 @@
     $(document).ready(function() {
       // Here is where we define experiment and display parameters
       // radius of circle 
-      arrayRadius = 150;
+      arrayRadius = 100;
       // number of items in the memory array
       numStim = 3;
       // the orientation range (actually, the upper bound) for items appearing on the same trial
@@ -36,22 +36,23 @@
 
       // CONTROL THE ANGLES OF EACH LINE SEGMENT INDEPENDENTLY
       function rotateStim() {
-          deg = [15, 15, 15]; //sampleOrientation(numStim,orientRange);
+          deg = sampleOrientation(numStim,orientRange);
+          deg = [15,15,15];
           console.log(deg);
-          $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 100 50)");
+          $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 300 300)");
           $("#stimTwo").attr('transform',"rotate(" + deg[1].toString() + " 250 50)");
           $("#stimThree").attr('transform',"rotate(" + deg[2].toString() + " 400 50)");
       }
       
-    //  function sampleOrientation(ns,ub) {	
-//         // ns = number of stimuli
-//         // ub = upper bound on range of orientations
-//     		deg = [];
-//     		for (i = 0; i <= ns; i++) {
-//     			deg.push(parseInt(Math.random() * ub));
-//     		}
-//     		return deg		
-//       }  
+      function sampleOrientation(ns,ub) {	
+        // ns = number of stimuli
+        // ub = upper bound on range of orientations
+    		deg = [];
+    		for (i = 0; i <= ns; i++) {
+    			deg.push(parseInt(Math.random() * ub));
+    		}
+    		return deg		
+      }  
         
       // CONTROL THE ANGULAR POSITION OF EACH LINE SEGMENT IN THE MEMORY ARRAY            
       function linearSpacing(ns) { // "ns" is the number of stimuli
@@ -72,10 +73,8 @@
       	return [x,y];
       }
 
-
       // Laura will generate pairs of coordinates for each line segment and return return [x1,y1,x2,y2];
       function getEndpoints(deg, segLen) {
-            deg = 30*Math.PI/180;
     		x1 = ((segLen/2)*Math.cos(deg));
     		y1 = ((segLen/2)*Math.sin(deg));
     		x2 = ((-segLen/2)*Math.cos(deg));
@@ -91,10 +90,11 @@
         posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
         console.log(posCoords);
         // get orientation of this line
-        deg = [15, 15, 15];//sampleOrientation(0,orientRange);
+        deg = sampleOrientation(0,orientRange);
+        deg = [30*Math.PI/180];
         console.log("deg is")
         console.log(deg);
-        //$("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " " +  posCoords[0].toString() + " " + posCoords[1].toString() + ")");
+        // $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " " +  posCoords[0].toString() + " " + posCoords[1].toString() + ")");
         $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 100 50)");
         localEndpoints = getEndpoints(deg,segLen);
         console.log(localEndpoints);
@@ -134,7 +134,7 @@
 		<svg width="700" height="700">
 		  <rect x="1" y="1" width="699" height="699" fill="none" stroke="none"/>
 		  <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
-		   <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  100 50)" />
+		   <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  300 300)" />
 		  </g>
 		   <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
 		   <line id="stimTwo" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
