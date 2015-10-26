@@ -111,7 +111,16 @@ function reverseArray(array) {
   }
 
 
-
+  function sampleOrientation(ns,ub) { 
+    // ns = number of stimuli
+    // ub = upper bound on range of orientations
+    deg = [];
+    for (i = 0; i <= ns; i++) {
+      deg.push(parseInt(Math.random() * ub));
+    }
+    return deg    
+  }  
+    
 
 
 
