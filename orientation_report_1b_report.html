@@ -20,7 +20,7 @@
       // radius of circle 
       arrayRadius = 200;
       // number of items in the memory array
-      numStim = 3;
+      numStim = 6;
       // the orientation range (actually, the upper bound) for items appearing on the same trial
       orientRange = 90;
       // length of line segment stimuli
@@ -31,7 +31,10 @@
         $('#frame').fadeIn('fast');
         $('#stimOne').on('click',rotateStim);
         $('#stimTwo').on('click',rotateStim);
-        $('#stimThree').on('click',rotateStim);        
+        $('#stimThree').on('click',rotateStim);
+        $('#stimFour').on('click',rotateStim);
+        $('#stimFive').on('click',rotateStim);
+        $('#stimSix').on('click',rotateStim);        
       }      
 
       // CONTROL THE ANGLES OF EACH LINE SEGMENT INDEPENDENTLY
@@ -41,6 +44,9 @@
           $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 350 350)");
           $("#stimTwo").attr('transform',"rotate(" + deg[1].toString() + " 250 50)");
           $("#stimThree").attr('transform',"rotate(" + deg[2].toString() + " 400 50)");
+          $("#stimFour").attr('transform',"rotate(" + deg[2].toString() + " 250 50)");
+          $("#stimFive").attr('transform',"rotate(" + deg[2].toString() + " 250 50)");
+          $("#stimSix").attr('transform',"rotate(" + deg[2].toString() + " 250 50)");
       }
       
       function sampleOrientation(ns,ub) {	
@@ -156,6 +162,76 @@
         $("#stimThree").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
       
+       function positionStimFour(l) {
+           // local coords taken in, and global coords returned out
+        posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
+        console.log(posCoords);
+        // get orientation of this line
+        deg = sampleOrientation(0,orientRange);
+        localEndpoints = getEndpoints(deg,segLen);
+        console.log(localEndpoints);
+        globalEndpoints = localEndpoints + posCoords;
+        globalEndpoints = [posCoords[0]+localEndpoints[0], 
+                           posCoords[1]+localEndpoints[1],
+                           posCoords[0]+localEndpoints[2],
+                           posCoords[1]+localEndpoints[3]]
+        console.log(globalEndpoints);
+        globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
+        globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
+        $("#stimFour").attr('x1',globalEndpoints[0].toString());
+        $("#stimFour").attr('y1',globalEndpoints[1].toString());
+        $("#stimFour").attr('x2',globalEndpoints[2].toString());
+        $("#stimFour").attr('y2',globalEndpoints[3].toString());
+        $("#stimFour").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
+      }
+       function positionStimFive(l) {
+           // local coords taken in, and global coords returned out
+        posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
+        console.log(posCoords);
+        // get orientation of this line
+        deg = sampleOrientation(0,orientRange);
+        localEndpoints = getEndpoints(deg,segLen);
+        console.log(localEndpoints);
+        globalEndpoints = localEndpoints + posCoords;
+        globalEndpoints = [posCoords[0]+localEndpoints[0], 
+                           posCoords[1]+localEndpoints[1],
+                           posCoords[0]+localEndpoints[2],
+                           posCoords[1]+localEndpoints[3]]
+        console.log(globalEndpoints);
+        globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
+        globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
+        $("#stimFive").attr('x1',globalEndpoints[0].toString());
+        $("#stimFive").attr('y1',globalEndpoints[1].toString());
+        $("#stimFive").attr('x2',globalEndpoints[2].toString());
+        $("#stimFive").attr('y2',globalEndpoints[3].toString());
+        $("#stimFive").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
+      }
+      
+       function positionStimSix(l) {
+           // local coords taken in, and global coords returned out
+        posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
+        console.log(posCoords);
+        // get orientation of this line
+        deg = sampleOrientation(0,orientRange);
+        localEndpoints = getEndpoints(deg,segLen);
+        console.log(localEndpoints);
+        globalEndpoints = localEndpoints + posCoords;
+        globalEndpoints = [posCoords[0]+localEndpoints[0], 
+                           posCoords[1]+localEndpoints[1],
+                           posCoords[0]+localEndpoints[2],
+                           posCoords[1]+localEndpoints[3]]
+        console.log(globalEndpoints);
+        globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
+        globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
+        $("#stimSix").attr('x1',globalEndpoints[0].toString());
+        $("#stimSix").attr('y1',globalEndpoints[1].toString());
+        $("#stimSix").attr('x2',globalEndpoints[2].toString());
+        $("#stimSix").attr('y2',globalEndpoints[3].toString());
+        $("#stimSix").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
+      }
+      
+      
+      
       // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
       displayStim();
       loci = linearSpacing(numStim);
@@ -163,6 +239,9 @@
       positionStimOne(loci[0]);
       positionStimTwo(loci[1]);
       positionStimThree(loci[2]);
+      positionStimFour(loci[3]);
+      positionStimFive(loci[4]);
+      positionStimSix(loci[5]);
     });
 
   
@@ -183,6 +262,15 @@
 		  </g>
 		   <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
 		   <line id="stimThree" x1="350" y1="50" x2="450" y2="50" transform="rotate(0 400 50)" />
+		  </g>
+		  <g stroke="red" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+		   <line id="stimFour" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
+		  </g>
+		  <g stroke="red" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+		   <line id="stimFive" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
+		  </g>
+		  <g stroke="red" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+		   <line id="stimSix" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
 		  </g>
 	  <defs>
 	  	<marker id="Arrowhead"
