@@ -18,13 +18,13 @@
     $(document).ready(function() {
       // Here is where we define experiment and display parameters
       // radius of circle 
-      arrayRadius = 100;
+      arrayRadius = 200;
       // number of items in the memory array
       numStim = 3;
       // the orientation range (actually, the upper bound) for items appearing on the same trial
       orientRange = 90;
       // length of line segment stimuli
-      segLen = 100;
+      segLen = 75;
 
       // TOP LEVEL DISPLAY-GENERATOR WRAPPER FUNCTION
       function displayStim() {
@@ -94,8 +94,7 @@
         //deg = [30*Math.PI/180];
         //console.log("deg is")
         //console.log(deg);
-        // $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " " +  posCoords[0].toString() + " " + posCoords[1].toString() + ")");
-        $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 350 350)");
+        // $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " " +  posCoords[0].toString() + " " + posCoords[1].toString() + ")")
         localEndpoints = getEndpoints(deg,segLen);
         console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
@@ -104,10 +103,13 @@
                            posCoords[0]+localEndpoints[2],
                            posCoords[1]+localEndpoints[3]]
         console.log(globalEndpoints);
+        globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
+        globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
         $("#stimOne").attr('x1',globalEndpoints[0].toString());
         $("#stimOne").attr('y1',globalEndpoints[1].toString());
         $("#stimOne").attr('x2',globalEndpoints[2].toString());
         $("#stimOne").attr('y2',globalEndpoints[3].toString());
+        $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
           function positionStimTwo(l) {
             // local coords taken in, and global coords returned out
@@ -115,7 +117,6 @@
         console.log(posCoords);
         // get orientation of this line
         deg = sampleOrientation(0,orientRange);
-        $("#stimTwo").attr('transform',"rotate(" + deg[0].toString() + " 250 50)");
         localEndpoints = getEndpoints(deg,segLen);
         console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
@@ -124,10 +125,13 @@
                            posCoords[0]+localEndpoints[2],
                            posCoords[1]+localEndpoints[3]]
         console.log(globalEndpoints);
+        globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
+        globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
         $("#stimTwo").attr('x1',globalEndpoints[0].toString());
         $("#stimTwo").attr('y1',globalEndpoints[1].toString());
         $("#stimTwo").attr('x2',globalEndpoints[2].toString());
         $("#stimTwo").attr('y2',globalEndpoints[3].toString());
+        $("#stimTwo").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
           function positionStimThree(l) {
            // local coords taken in, and global coords returned out
@@ -135,7 +139,6 @@
         console.log(posCoords);
         // get orientation of this line
         deg = sampleOrientation(0,orientRange);
-        $("#stimThree").attr('transform',"rotate(" + deg[0].toString() + " 400 50)");
         localEndpoints = getEndpoints(deg,segLen);
         console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
@@ -144,10 +147,13 @@
                            posCoords[0]+localEndpoints[2],
                            posCoords[1]+localEndpoints[3]]
         console.log(globalEndpoints);
+        globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
+        globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
         $("#stimThree").attr('x1',globalEndpoints[0].toString());
         $("#stimThree").attr('y1',globalEndpoints[1].toString());
         $("#stimThree").attr('x2',globalEndpoints[2].toString());
         $("#stimThree").attr('y2',globalEndpoints[3].toString());
+        $("#stimThree").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
       
       // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
@@ -168,16 +174,21 @@
     <div id="frame" style="display:none">
 		<svg width="700" height="700">
 		  <rect x="1" y="1" width="699" height="699" fill="none" stroke="none"/>
-		  <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
+		  <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)" >
 		   <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  350 350)" />
 		  </g>
-		   <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
+		  
+		   <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
 		   <line id="stimTwo" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
 		  </g>
-		   <g stroke="steelblue" stroke-width="10" stroke-linecap="round">
+		   <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
 		   <line id="stimThree" x1="350" y1="50" x2="450" y2="50" transform="rotate(0 400 50)" />
 		  </g>
-	  
+	  <defs>
+	  	<marker id="Arrowhead"
+      		viewBox="0 0 10 10" refX="0" refY="5" markerUnits="strokeWidth" markerWidth="4" markerHeight="3" orient="auto" >
+      	</marker>
+      </defs>
 		</svg>
     </div>
 
