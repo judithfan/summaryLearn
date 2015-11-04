@@ -1,0 +1,7 @@
+TODO: 
+(1) arrowheads
+(2) add other color category (red items)
+(3) cue sequence (circular frames)
+(4) probe/response (randomly oriented arrow, mouse cursor tracking, click to respond)
+
+Current design:
