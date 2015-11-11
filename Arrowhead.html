@@ -1,0 +1,45 @@
+ <!doctype html>
+<html>
+  <head>
+    <title>Arrowhead</title>
+  </head>
+  <body>
+  <link type="text/css" rel="stylesheet" href="stylesheet.css" media="all"></link>    
+    <script type="text/javascript" src="jquery-latest.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.10.4.custom.min.js"></script>
+    <script type="text/javascript" src="json2.min.js"></script>
+    <script type="text/javascript" src='underscore.js'></script>
+    <script type="text/javascript" src='jquery.rotate.1-1.js'></script>
+    <script type="text/javascript" src='raphael-min.js'></script>
+    <script type="text/javascript" src='numeric-1.2.6.min.js'></script>
+    <script type="text/javascript" src='helpers.js'></script>
+    <script type="text/javascript"> 
+    // javascript stuff goes here
+    $(document).ready(function() {
+      // Here is where we define experiment and display parameters
+      // radius of circle 
+      arrayRadius = 200;
+      // number of items in the memory array
+      numStim = 6;
+      // the orientation range (actually, the upper bound) for items appearing on the same trial
+      orientRange = 90;
+      // length of line segment stimuli
+      segLen = 70;
+  function displayStim() {
+        $('#frame').fadeIn('fast');
+        $('#stimOne').on('click',rotateStim);
+ <div id="frame" style="display:none">
+		<svg width="700" height="700">
+		  <rect x="1" y="1" width="699" height="699" fill="none" stroke="none"/>
+		  <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)" >
+		   <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  350 350)" />
+		  </g>
+		   <defs>
+	  	<marker id="Arrowhead"
+      		viewBox="0 0 10 10" refX="0" refY="5" markerUnits="strokeWidth" markerWidth="4" markerHeight="3" orient="auto" >
+      	</marker>
+      </defs>
+		</svg>
+    </div>
+     </body>
+</html>
