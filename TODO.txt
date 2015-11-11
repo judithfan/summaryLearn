@@ -1,13 +1,18 @@
 TODO: 
 Building a single trial...
-(1) arrowheads
-(2) add other color category (red items)
+(1) arrowheads [CHECK!]
+(2) add other color category (red items) [CHECK!]
 (3) cue sequence (circular frames)
 (4) probe/response (randomly oriented arrow, mouse cursor tracking, click to respond)
 Building trial sequence...
 (5) randomizing probe type across trials (blue vs. red, single vs. all)
 Building in phase structure...
 (6) specifying task type in pre/post-test vs. training (ensemble vs. item)
+
+DISPLAY:
+Add random jitter to the eccentricity of each of the line segments to disrupt the "wheel" interpretation
+
+Also, is it the case that we're really sampling orientations in 90 deg range?
 
 DESIGN
 6 item WM display: 3 in each color (e.g., red and blue)
