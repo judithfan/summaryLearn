@@ -24,7 +24,7 @@
       // the orientation range (actually, the upper bound) for items appearing on the same trial
       orientRange = 90;
       // length of line segment stimuli
-      segLen = 75;
+      segLen = 70;
 
       // TOP LEVEL DISPLAY-GENERATOR WRAPPER FUNCTION
       function displayStim() {
@@ -168,7 +168,7 @@
         console.log(posCoords);
         // get orientation of this line
         deg = sampleOrientation(0,orientRange);
-        localEndpoints = getEndpoints(deg,segLen);
+        localEndpoints = getEndpoints(deg, segLen);
         console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
         globalEndpoints = [posCoords[0]+localEndpoints[0], 
