@@ -116,6 +116,8 @@
         $("#stimOne").attr('x2',globalEndpoints[2].toString());
         $("#stimOne").attr('y2',globalEndpoints[3].toString());
         $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
+      
+        return globalEndpoints;
       }
           function positionStimTwo(l) {
             // local coords taken in, and global coords returned out
@@ -138,6 +140,8 @@
         $("#stimTwo").attr('x2',globalEndpoints[2].toString());
         $("#stimTwo").attr('y2',globalEndpoints[3].toString());
         $("#stimTwo").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
+      
+        return globalEndpoints;
       }
           function positionStimThree(l) {
            // local coords taken in, and global coords returned out
@@ -160,6 +164,8 @@
         $("#stimThree").attr('x2',globalEndpoints[2].toString());
         $("#stimThree").attr('y2',globalEndpoints[3].toString());
         $("#stimThree").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
+      
+        return globalEndpoints;
       }
       
        function positionStimFour(l) {
@@ -183,6 +189,8 @@
         $("#stimFour").attr('x2',globalEndpoints[2].toString());
         $("#stimFour").attr('y2',globalEndpoints[3].toString());
         $("#stimFour").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
+      
+        return globalEndpoints;
       }
        function positionStimFive(l) {
            // local coords taken in, and global coords returned out
@@ -205,6 +213,8 @@
         $("#stimFive").attr('x2',globalEndpoints[2].toString());
         $("#stimFive").attr('y2',globalEndpoints[3].toString());
         $("#stimFive").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
+      
+        return globalEndpoints;
       }
       
        function positionStimSix(l) {
@@ -228,7 +238,31 @@
         $("#stimSix").attr('x2',globalEndpoints[2].toString());
         $("#stimSix").attr('y2',globalEndpoints[3].toString());
         $("#stimSix").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
+        
+        return globalEndpoints;
       }
+      
+      function positionCue(randomEndpoints) {
+        globalMidpointX = (randomEndpoints[0] + randomEndpoints[2])/2;
+        globalMidpointY = (randomEndpoints[1] + randomEndpoints[3])/2;
+        $("#cue").attr('cx', globalMidpointX.toString());
+        $("#cue").attr('cy', globalMidpointY.toString());
+        
+        }
+        
+      function chooseCue(ge1, ge2, ge3, ge4, ge5, ge6) {
+      		i = Math.random();
+      		if      (i < 1/8.0) {randomEndpoints = ge1;}
+            else if (i < 2/8.0) {randomEndpoints = ge2;}
+      		else if (i < 3/8.0) {randomEndpoints = ge3;}
+      		else if (i < 4/8.0) {randomEndpoints = ge4;}
+      		else if (i > 5/8.0) {randomEndpoints = ge5;}
+      		else    {randomEndpoints = ge6;}
+      		
+      		return randomEndpoints;
+      }
+       
+       
       
       
       
@@ -236,12 +270,14 @@
       displayStim();
       loci = linearSpacing(numStim);
       console.log(loci);
-      positionStimOne(loci[0]);
-      positionStimTwo(loci[1]);
-      positionStimThree(loci[2]);
-      positionStimFour(loci[3]);
-      positionStimFive(loci[4]);
-      positionStimSix(loci[5]);
+      ge1 = positionStimOne(loci[0]);
+      ge2 = positionStimTwo(loci[1]);
+      ge3 = positionStimThree(loci[2]);
+      ge4 = positionStimFour(loci[3]);
+      ge5 = positionStimFive(loci[4]);
+      ge6 = positionStimSix(loci[5]);
+      randomEndpoints = chooseCue(ge1, ge2, ge3, ge4, ge5, ge6);
+      positionCue(randomEndpoints);
     });
 
   
@@ -296,7 +332,9 @@
 		  <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
 		   <line id="stimSix" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
 		  </g>
-
+          <g height="75" width="75">
+            <circle id="cue" cx="350" cy="150" r="38" stroke="black" stroke-width="3" fill="none" />
+          </g>
 		</svg>
     </div>
 
