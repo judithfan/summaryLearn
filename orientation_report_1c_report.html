@@ -24,17 +24,18 @@
       // the orientation range (actually, the upper bound) for items appearing on the same trial
       orientRange = 90;
       // length of line segment stimuli
-      segLen = 70;
+      segLen = 40;      
 
       // TOP LEVEL DISPLAY-GENERATOR WRAPPER FUNCTION
       function displayStim() {
         $('#frame').fadeIn('fast');
-        $('#stimOne').on('click',rotateStim);
-        $('#stimTwo').on('click',rotateStim);
-        $('#stimThree').on('click',rotateStim);
-        $('#stimFour').on('click',rotateStim);
-        $('#stimFive').on('click',rotateStim);
-        $('#stimSix').on('click',rotateStim);        
+        // $('#stimOne').on('click',rotateStim);
+        // $('#stimTwo').on('click',rotateStim);
+        // $('#stimThree').on('click',rotateStim);
+        // $('#stimFour').on('click',rotateStim);
+        // $('#stimFive').on('click',rotateStim);
+        // $('#stimSix').on('click',rotateStim);     
+        // $('#probeSeg').on('click',rotateStim);        
       }      
 
       // CONTROL THE ANGLES OF EACH LINE SEGMENT INDEPENDENTLY
@@ -229,7 +230,7 @@
         $("#stimSix").attr('y2',globalEndpoints[3].toString());
         $("#stimSix").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
-      
+
       
       
       // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
@@ -242,6 +243,17 @@
       positionStimFour(loci[3]);
       positionStimFive(loci[4]);
       positionStimSix(loci[5]);
+
+
+      // control memory probe orientation with mouse cursor
+      var probe=$("#probeSeg");
+      var probeCenter=[350, 350];
+      $(document).mousemove(function(e){   
+        var angle = Math.atan2(e.pageX-350, -(e.pageY-350) )*(180/Math.PI); 
+        console.log(angle);    
+          probe.attr('transform', 'rotate(' + angle + ' 350 350)');          
+      });
+
     });
 
   
@@ -252,31 +264,65 @@
     <!-- oriented lines -->
     <div id="frame" style="display:none">
     <svg width="700" height="700">
+
+      <defs>
+          <marker id="ArrowheadBlue"
+                  viewBox="0 0 10 10" 
+                  refX="1" refY="5"
+                  markerWidth="3" 
+                  markerHeight="3"
+                  orient="auto"
+                  fill="steelblue">
+              <path d="M 0 0 L 10 5 L 0 10 z" />
+          </marker> 
+
+          <marker id="ArrowheadRed"
+                  viewBox="0 0 10 10" 
+                  refX="1" refY="5"
+                  markerWidth="3" 
+                  markerHeight="3"
+                  orient="auto"
+                  fill="red">
+              <path d="M 0 0 L 10 5 L 0 10 z" />
+          </marker> 
+
+          <marker id="ArrowheadBlack"
+                  viewBox="0 0 10 10" 
+                  refX="1" refY="5"
+                  markerWidth="3" 
+                  markerHeight="3"
+                  orient="auto"
+                  fill="black">
+              <path d="M 0 0 L 10 5 L 0 10 z" />
+          </marker> 
+
+
+      </defs>
+
       <rect x="1" y="1" width="699" height="699" fill="none" stroke="none"/>
-      <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)" >
+      <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)">
        <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  350 350)" />
-      </g>
-      
-       <g stroke="red" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+      </g>      
+       <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
        <line id="stimTwo" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
       </g>
-       <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+       <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)">
        <line id="stimThree" x1="350" y1="50" x2="450" y2="50" transform="rotate(0 400 50)" />
       </g>
-      <g stroke="red" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+      <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
        <line id="stimFour" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
       </g>
-      <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+      <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)">
        <line id="stimFive" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
       </g>
-      <g stroke="red" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+      <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
        <line id="stimSix" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
       </g>
-    <defs>
-      <marker id="Arrowhead"
-          viewBox="0 0 10 10" refX="0" refY="5" markerUnits="strokeWidth" markerWidth="4" markerHeight="3" orient="auto" >
-        </marker>
-      </defs>
+
+      <g stroke="black" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlack)">
+       <line id="probeSeg" x1="330" y1="330" x2="370" y2="370" transform="rotate(0  250 50)" />
+      </g>
+
     </svg>
     </div>
 
