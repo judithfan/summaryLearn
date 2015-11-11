@@ -1,7 +1,22 @@
 TODO: 
+Building a single trial...
 (1) arrowheads
 (2) add other color category (red items)
 (3) cue sequence (circular frames)
 (4) probe/response (randomly oriented arrow, mouse cursor tracking, click to respond)
+Building trial sequence...
+(5) randomizing probe type across trials (blue vs. red, single vs. all)
+Building in phase structure...
+(6) specifying task type in pre/post-test vs. training (ensemble vs. item)
 
-Current design:
+DESIGN
+6 item WM display: 3 in each color (e.g., red and blue)
+orientation report task
+
+PROCEDURE:
+
+Pre-test/Post-test: measure fidelity of ensemble report for both green and blue by probing either blue or green group across trials
+
+Training: repeatedly probe individual items from one color category only (e.g., blue)
+
+ANALYSIS: standard for VSTM 

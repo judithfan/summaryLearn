@@ -24,7 +24,7 @@
       // the orientation range (actually, the upper bound) for items appearing on the same trial
       orientRange = 90;
       // length of line segment stimuli
-      segLen = 40;
+      segLen = 70;
 
       // TOP LEVEL DISPLAY-GENERATOR WRAPPER FUNCTION
       function displayStim() {
@@ -38,25 +38,25 @@
       }      
 
       // CONTROL THE ANGLES OF EACH LINE SEGMENT INDEPENDENTLY
-      function rotateStim() {
-          deg = sampleOrientation(numStim,orientRange);
-          console.log(deg);
-          $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 350 350)");
-          $("#stimTwo").attr('transform',"rotate(" + deg[1].toString() + " 250 50)");
-          $("#stimThree").attr('transform',"rotate(" + deg[2].toString() + " 400 50)");
-          $("#stimFour").attr('transform',"rotate(" + deg[3].toString() + " 250 50)");
-          $("#stimFive").attr('transform',"rotate(" + deg[4].toString() + " 250 50)");
-          $("#stimSix").attr('transform',"rotate(" + deg[5].toString() + " 250 50)");
-      }
+      // function rotateStim() {
+      //     deg = sampleOrientation(numStim,orientRange);
+      //     console.log(deg);
+      //     $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 350 350)");
+      //     $("#stimTwo").attr('transform',"rotate(" + deg[1].toString() + " 250 50)");
+      //     $("#stimThree").attr('transform',"rotate(" + deg[2].toString() + " 400 50)");
+      //     $("#stimFour").attr('transform',"rotate(" + deg[3].toString() + " 250 50)");
+      //     $("#stimFive").attr('transform',"rotate(" + deg[4].toString() + " 250 50)");
+      //     $("#stimSix").attr('transform',"rotate(" + deg[5].toString() + " 250 50)");
+      // }
       
-      function sampleOrientation(ns,ub) {	
+      function sampleOrientation(ns,ub) { 
         // ns = number of stimuli
         // ub = upper bound on range of orientations
-    		deg = [];
-    		for (i = 0; i <= ns; i++) {
-    			deg.push(parseInt(Math.random() * ub));
-    		}
-    		return deg		
+        deg = [];
+        for (i = 0; i <= ns; i++) {
+          deg.push(parseInt(Math.random() * ub));
+        }
+        return deg    
       }  
         
       // CONTROL THE ANGULAR POSITION OF EACH LINE SEGMENT IN THE MEMORY ARRAY            
@@ -69,24 +69,24 @@
       }      
        
       function polarToCartesianCoords(l) {
-      	// l = single angle in degrees corresponding to the angular position of the line segment in the memory array, l = "loci"
+        // l = single angle in degrees corresponding to the angular position of the line segment in the memory array, l = "loci"
         // r = radius
-      	radians = l*Math.PI/180;
+        radians = l*Math.PI/180;
         console.log(radians);
-      	x = arrayRadius*Math.cos(radians) + 350;
-      	y = arrayRadius*Math.sin(radians) + 350;
-      	return [x,y];
+        x = arrayRadius*Math.cos(radians) + 350;
+        y = arrayRadius*Math.sin(radians) + 350;
+        return [x,y];
       }
 
       // Laura will generate pairs of coordinates for each line segment and return return [x1,y1,x2,y2];
       function getEndpoints(deg, segLen) {
-      		deg = deg*Math.PI/180;
-    		x1 = ((segLen/2)*Math.cos(deg));
-    		y1 = ((segLen/2)*Math.sin(deg));
-    		x2 = ((-segLen/2)*Math.cos(deg));
-    		y2 = ((-segLen/2)*Math.sin(deg));
-    		return [x1, y1, x2, y2];
-		  }
+          deg = deg*Math.PI/180;
+        x1 = ((segLen/2)*Math.cos(deg));
+        y1 = ((segLen/2)*Math.sin(deg));
+        x2 = ((-segLen/2)*Math.cos(deg));
+        y2 = ((-segLen/2)*Math.sin(deg));
+        return [x1, y1, x2, y2];
+      }
 
       // Judy will take those coordinates and apply them to the html elements #stimOne, #stimTwo, # stimThree 
       // coords = getEndpoints(deg,segLen);
@@ -248,56 +248,36 @@
     
    </script>
 
-	
+  
     <!-- oriented lines -->
     <div id="frame" style="display:none">
-		<svg width="700" height="700">
-
-      <defs>
-          <marker id="ArrowheadBlue"
-                  viewBox="0 0 10 10" 
-                  refX="1" refY="5"
-                  markerWidth="3" 
-                  markerHeight="3"
-                  orient="auto"
-                  fill="steelblue">
-              <path d="M 0 0 L 10 5 L 0 10 z" />
-          </marker> 
-
-          <marker id="ArrowheadRed"
-                  viewBox="0 0 10 10" 
-                  refX="1" refY="5"
-                  markerWidth="3" 
-                  markerHeight="3"
-                  orient="auto"
-                  fill="red">
-              <path d="M 0 0 L 10 5 L 0 10 z" />
-          </marker> 
-
+    <svg width="700" height="700">
+      <rect x="1" y="1" width="699" height="699" fill="none" stroke="none"/>
+      <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)" >
+       <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  350 350)" />
+      </g>
+      
+       <g stroke="red" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+       <line id="stimTwo" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
+      </g>
+       <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+       <line id="stimThree" x1="350" y1="50" x2="450" y2="50" transform="rotate(0 400 50)" />
+      </g>
+      <g stroke="red" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+       <line id="stimFour" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
+      </g>
+      <g stroke="steelblue" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+       <line id="stimFive" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
+      </g>
+      <g stroke="red" stroke-width="10" stroke-linecap="round" marker-end="url(#Arrowhead)">
+       <line id="stimSix" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
+      </g>
+    <defs>
+      <marker id="Arrowhead"
+          viewBox="0 0 10 10" refX="0" refY="5" markerUnits="strokeWidth" markerWidth="4" markerHeight="3" orient="auto" >
+        </marker>
       </defs>
-
-
-		  <rect x="1" y="1" width="699" height="699" fill="none" stroke="none"/>
-		  <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)">
-		   <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  350 350)" />
-		  </g>		  
-		   <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
-		   <line id="stimTwo" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
-		  </g>
-		   <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)">
-		   <line id="stimThree" x1="350" y1="50" x2="450" y2="50" transform="rotate(0 400 50)" />
-		  </g>
-		  <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
-		   <line id="stimFour" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
-		  </g>
-		  <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)">
-		   <line id="stimFive" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
-		  </g>
-		  <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
-		   <line id="stimSix" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
-		  </g>
-
-		</svg>
+    </svg>
     </div>
 
 
