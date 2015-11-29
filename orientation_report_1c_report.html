@@ -24,19 +24,21 @@
       // the orientation range (actually, the upper bound) for items appearing on the same trial
       orientRange = 90;
       // length of line segment stimuli
-      segLen = 40;      
+      segLen = 40;
+      //number of trials
+      numTrials = 50;      
 
       // TOP LEVEL DISPLAY-GENERATOR WRAPPER FUNCTION
-      function displayStim() {
-        $('#frame').fadeIn('fast');
-        // $('#stimOne').on('click',rotateStim);
-        // $('#stimTwo').on('click',rotateStim);
-        // $('#stimThree').on('click',rotateStim);
-        // $('#stimFour').on('click',rotateStim);
-        // $('#stimFive').on('click',rotateStim);
-        // $('#stimSix').on('click',rotateStim);     
-        // $('#probeSeg').on('click',rotateStim);        
-      }      
+      // function displayStim() {
+//         $('#frame').fadeIn('fast');
+//         // $('#stimOne').on('click',rotateStim);
+//         // $('#stimTwo').on('click',rotateStim);
+//         // $('#stimThree').on('click',rotateStim);
+//         // $('#stimFour').on('click',rotateStim);
+//         // $('#stimFive').on('click',rotateStim);
+//         // $('#stimSix').on('click',rotateStim);     
+//         // $('#probeSeg').on('click',rotateStim);        
+    //  }      
 
       // CONTROL THE ANGLES OF EACH LINE SEGMENT INDEPENDENTLY
       // function rotateStim() {
@@ -49,6 +51,32 @@
       //     $("#stimFive").attr('transform',"rotate(" + deg[4].toString() + " 250 50)");
       //     $("#stimSix").attr('transform',"rotate(" + deg[5].toString() + " 250 50)");
       // }
+      
+      
+      function displayStim() {
+        $('#frame').fadeIn('fast');
+      	$('#stimOne').fadeIn('fast');
+      	$('#stimTwo').fadeIn('fast');
+      	$('#stimThree').fadeIn('fast');
+      	$('#stimFour').fadeIn('fast');
+      	$('#stimFive').fadeIn('fast');
+      	$('#stimSix').fadeIn('fast');
+      }
+      
+      function displayBlank() {
+        $('#StimOne').fadeOut('fast');
+        $('#StimTwo').fadeOut('fast');
+        $('#StimThree').fadeOut('fast');
+        $('#StimFour').fadeOut('fast');
+        $('#StimFive').fadeOut('fast');
+        $('#StimSix').fadeOut('fast');
+        $('#cue').fadeOut('fast');
+      }
+      
+      function displayProbe() {
+        $("#probeSeg").fadeIn('fast');
+      }
+      
       
       function sampleOrientation(ns,ub) { 
         // ns = number of stimuli
@@ -230,31 +258,60 @@
         $("#stimSix").attr('y2',globalEndpoints[3].toString());
         $("#stimSix").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
-
       
-      
-      // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
-      displayStim();
-      loci = linearSpacing(numStim);
-      console.log(loci);
-      positionStimOne(loci[0]);
-      positionStimTwo(loci[1]);
-      positionStimThree(loci[2]);
-      positionStimFour(loci[3]);
-      positionStimFive(loci[4]);
-      positionStimSix(loci[5]);
-
-
-      // control memory probe orientation with mouse cursor
+ 	  function positionCue(randomEndpoints) {
+        globalMidpointX = (randomEndpoints[0] + randomEndpoints[2])/2;
+        globalMidpointY = (randomEndpoints[1] + randomEndpoints[3])/2;
+        $("#cue").attr('cx', globalMidpointX.toString());
+        $("#cue").attr('cy', globalMidpointY.toString());
+        
+        }
+        
+      function chooseCue(ge1, ge2, ge3, ge4, ge5, ge6) {
+      		i = Math.random();
+      		if      (i < 1/8.0) {randomEndpoints = ge1;}
+            else if (i < 2/8.0) {randomEndpoints = ge2;}
+      		else if (i < 3/8.0) {randomEndpoints = ge3;}
+      		else if (i < 4/8.0) {randomEndpoints = ge4;}
+      		else if (i > 5/8.0) {randomEndpoints = ge5;}
+      		else    {randomEndpoints = ge6;}
+      		
+      		return randomEndpoints;
+      }
+       
+             // control memory probe orientation with mouse cursor
       var probe=$("#probeSeg");
       var probeCenter=[350, 350];
       $(document).mousemove(function(e){   
         var angle = Math.atan2(e.pageX-350, -(e.pageY-350) )*(180/Math.PI); 
         console.log(angle);    
           probe.attr('transform', 'rotate(' + angle + ' 350 350)');          
-      });
 
+
+      // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
+      for (i = 0; i < numTrials; i++) {  
+      setTimeout(function() {displayStim();}, 500); 
+      loci = linearSpacing(numStim);
+      console.log(loci);
+      ge1 = positionStimOne(loci[0]);
+      ge2 = positionStimTwo(loci[1]);
+      ge3 = positionStimThree(loci[2]);
+      ge4 = positionStimFour(loci[3]);
+      ge5 = positionStimFive(loci[4]);
+      ge6 = positionStimSix(loci[5]);
+      randomEndpoints = chooseCue(ge1, ge2, ge3, ge4, ge5, ge6);
+      setTimeout(function() {displayBlank();}, 500);
+      setTimeout(function() {positionCue(randomEndpoints);}, 500); 
+      setTimeout(function() {displayBlank();}, 500);
+      displayProbe();
+      //record probed response to database? 
+      displayBlank();
+    }
+      
+}
     });
+    
+    
 
   
     
@@ -318,7 +375,9 @@
       <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
        <line id="stimSix" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
       </g>
-
+	  <g height="75" width="75">
+        <circle id="cue" cx="350" cy="150" r="38" stroke="black" stroke-width="3" fill="none" />
+      </g>
       <g stroke="black" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlack)">
        <line id="probeSeg" x1="330" y1="330" x2="370" y2="370" transform="rotate(0  250 50)" />
       </g>
