@@ -28,31 +28,6 @@
       //number of trials
       numTrials = 50;      
 
-      // TOP LEVEL DISPLAY-GENERATOR WRAPPER FUNCTION
-      // function displayStim() {
-//         $('#frame').fadeIn('fast');
-//         // $('#stimOne').on('click',rotateStim);
-//         // $('#stimTwo').on('click',rotateStim);
-//         // $('#stimThree').on('click',rotateStim);
-//         // $('#stimFour').on('click',rotateStim);
-//         // $('#stimFive').on('click',rotateStim);
-//         // $('#stimSix').on('click',rotateStim);     
-//         // $('#probeSeg').on('click',rotateStim);        
-    //  }      
-
-      // CONTROL THE ANGLES OF EACH LINE SEGMENT INDEPENDENTLY
-      // function rotateStim() {
-      //     deg = sampleOrientation(numStim,orientRange);
-      //     console.log(deg);
-      //     $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " 350 350)");
-      //     $("#stimTwo").attr('transform',"rotate(" + deg[1].toString() + " 250 50)");
-      //     $("#stimThree").attr('transform',"rotate(" + deg[2].toString() + " 400 50)");
-      //     $("#stimFour").attr('transform',"rotate(" + deg[3].toString() + " 250 50)");
-      //     $("#stimFive").attr('transform',"rotate(" + deg[4].toString() + " 250 50)");
-      //     $("#stimSix").attr('transform',"rotate(" + deg[5].toString() + " 250 50)");
-      // }
-      
-      
       function displayStim() {
         $('#frame').fadeIn('fast');
       	$('#stimOne').fadeIn('fast');
@@ -107,9 +82,9 @@
         return [x,y];
       }
 
-      // Laura will generate pairs of coordinates for each line segment and return return [x1,y1,x2,y2];
+      // Generate pairs of coordinates for each line segment and return return [x1,y1,x2,y2];
       function getEndpoints(deg, segLen) {
-          deg = deg*Math.PI/180;
+        deg = deg*Math.PI/180;
         x1 = ((segLen/2)*Math.cos(deg));
         y1 = ((segLen/2)*Math.sin(deg));
         x2 = ((-segLen/2)*Math.cos(deg));
@@ -123,21 +98,14 @@
       function positionStimOne(l) {
         // local coords taken in, and global coords returned out
         posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
-        console.log(posCoords);
         // get orientation of this line
         deg = sampleOrientation(0,orientRange);
-        //deg = [30*Math.PI/180];
-        //console.log("deg is")
-        //console.log(deg);
-        // $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " " +  posCoords[0].toString() + " " + posCoords[1].toString() + ")")
         localEndpoints = getEndpoints(deg,segLen);
-        console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
         globalEndpoints = [posCoords[0]+localEndpoints[0], 
                            posCoords[1]+localEndpoints[1],
                            posCoords[0]+localEndpoints[2],
-                           posCoords[1]+localEndpoints[3]]
-        console.log(globalEndpoints);
+                           posCoords[1]+localEndpoints[3]];
         globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
         globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
         $("#stimOne").attr('x1',globalEndpoints[0].toString());
@@ -146,20 +114,18 @@
         $("#stimOne").attr('y2',globalEndpoints[3].toString());
         $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
-          function positionStimTwo(l) {
-            // local coords taken in, and global coords returned out
+
+      function positionStimTwo(l) {
+        // local coords taken in, and global coords returned out
         posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
-        console.log(posCoords);
         // get orientation of this line
         deg = sampleOrientation(0,orientRange);
         localEndpoints = getEndpoints(deg,segLen);
-        console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
         globalEndpoints = [posCoords[0]+localEndpoints[0], 
                            posCoords[1]+localEndpoints[1],
                            posCoords[0]+localEndpoints[2],
-                           posCoords[1]+localEndpoints[3]]
-        console.log(globalEndpoints);
+                           posCoords[1]+localEndpoints[3]];
         globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
         globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
         $("#stimTwo").attr('x1',globalEndpoints[0].toString());
@@ -168,20 +134,18 @@
         $("#stimTwo").attr('y2',globalEndpoints[3].toString());
         $("#stimTwo").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
-          function positionStimThree(l) {
-           // local coords taken in, and global coords returned out
+
+      function positionStimThree(l) {
+        // local coords taken in, and global coords returned out
         posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
-        console.log(posCoords);
         // get orientation of this line
         deg = sampleOrientation(0,orientRange);
         localEndpoints = getEndpoints(deg,segLen);
-        console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
         globalEndpoints = [posCoords[0]+localEndpoints[0], 
                            posCoords[1]+localEndpoints[1],
                            posCoords[0]+localEndpoints[2],
                            posCoords[1]+localEndpoints[3]]
-        console.log(globalEndpoints);
         globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
         globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
         $("#stimThree").attr('x1',globalEndpoints[0].toString());
@@ -191,20 +155,17 @@
         $("#stimThree").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
       
-       function positionStimFour(l) {
-           // local coords taken in, and global coords returned out
+      function positionStimFour(l) {
+        // local coords taken in, and global coords returned out
         posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
-        console.log(posCoords);
         // get orientation of this line
         deg = sampleOrientation(0,orientRange);
         localEndpoints = getEndpoints(deg, segLen);
-        console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
         globalEndpoints = [posCoords[0]+localEndpoints[0], 
                            posCoords[1]+localEndpoints[1],
                            posCoords[0]+localEndpoints[2],
                            posCoords[1]+localEndpoints[3]]
-        console.log(globalEndpoints);
         globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
         globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
         $("#stimFour").attr('x1',globalEndpoints[0].toString());
@@ -213,20 +174,18 @@
         $("#stimFour").attr('y2',globalEndpoints[3].toString());
         $("#stimFour").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
-       function positionStimFive(l) {
-           // local coords taken in, and global coords returned out
+
+      function positionStimFive(l) {
+        // local coords taken in, and global coords returned out
         posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
-        console.log(posCoords);
         // get orientation of this line
         deg = sampleOrientation(0,orientRange);
         localEndpoints = getEndpoints(deg,segLen);
-        console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
         globalEndpoints = [posCoords[0]+localEndpoints[0], 
                            posCoords[1]+localEndpoints[1],
                            posCoords[0]+localEndpoints[2],
                            posCoords[1]+localEndpoints[3]]
-        console.log(globalEndpoints);
         globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
         globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
         $("#stimFive").attr('x1',globalEndpoints[0].toString());
@@ -236,20 +195,17 @@
         $("#stimFive").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
       
-       function positionStimSix(l) {
-           // local coords taken in, and global coords returned out
+      function positionStimSix(l) {
+        // local coords taken in, and global coords returned out
         posCoords = polarToCartesianCoords(l); // supposed to be the cartesian coordinates of this line segment
-        console.log(posCoords);
         // get orientation of this line
         deg = sampleOrientation(0,orientRange);
         localEndpoints = getEndpoints(deg,segLen);
-        console.log(localEndpoints);
         globalEndpoints = localEndpoints + posCoords;
         globalEndpoints = [posCoords[0]+localEndpoints[0], 
                            posCoords[1]+localEndpoints[1],
                            posCoords[0]+localEndpoints[2],
                            posCoords[1]+localEndpoints[3]]
-        console.log(globalEndpoints);
         globalMidpointX = (globalEndpoints[0] + globalEndpoints[2])/2;
         globalMidpointY = (globalEndpoints[1] + globalEndpoints[3])/2;
         $("#stimSix").attr('x1',globalEndpoints[0].toString());
@@ -258,39 +214,56 @@
         $("#stimSix").attr('y2',globalEndpoints[3].toString());
         $("#stimSix").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
       }
-      
- 	  function positionCue(randomEndpoints) {
+    
+   	  function positionCue(randomEndpoints) {
         globalMidpointX = (randomEndpoints[0] + randomEndpoints[2])/2;
         globalMidpointY = (randomEndpoints[1] + randomEndpoints[3])/2;
         $("#cue").attr('cx', globalMidpointX.toString());
         $("#cue").attr('cy', globalMidpointY.toString());
-        
-        }
+      }
         
       function chooseCue(ge1, ge2, ge3, ge4, ge5, ge6) {
-      		i = Math.random();
-      		if      (i < 1/8.0) {randomEndpoints = ge1;}
-            else if (i < 2/8.0) {randomEndpoints = ge2;}
-      		else if (i < 3/8.0) {randomEndpoints = ge3;}
-      		else if (i < 4/8.0) {randomEndpoints = ge4;}
-      		else if (i > 5/8.0) {randomEndpoints = ge5;}
-      		else    {randomEndpoints = ge6;}
-      		
-      		return randomEndpoints;
+    		i = Math.random();
+    		if      (i < 1/8.0) {randomEndpoints = ge1;}
+        else if (i < 2/8.0) {randomEndpoints = ge2;}
+    		else if (i < 3/8.0) {randomEndpoints = ge3;}
+    		else if (i < 4/8.0) {randomEndpoints = ge4;}
+    		else if (i > 5/8.0) {randomEndpoints = ge5;}
+    		else    {randomEndpoints = ge6;}
+    		return randomEndpoints;
       }
        
-             // control memory probe orientation with mouse cursor
-      var probe=$("#probeSeg");
-      var probeCenter=[350, 350];
-      $(document).mousemove(function(e){   
-        var angle = Math.atan2(e.pageX-350, -(e.pageY-350) )*(180/Math.PI); 
-        console.log(angle);    
-          probe.attr('transform', 'rotate(' + angle + ' 350 350)');          
+    // // control memory probe orientation with mouse cursor
+    // // var probe=$("#probeSeg");
+    // var probeCenter=[350, 350];
+    // $(document).mousemove(function(e){   
+    //   var angle = Math.atan2(e.pageX-350, -(e.pageY-350) )*(180/Math.PI); 
+    //   console.log(angle);    
+    //     probe.attr('transform', 'rotate(' + angle + ' 350 350)');          
 
 
+    //   // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
+    //   for (i = 0; i < numTrials; i++) {  
+    //   setTimeout(function() {displayStim();}, 500); 
+    //   loci = linearSpacing(numStim);
+    //   console.log(loci);
+    //   ge1 = positionStimOne(loci[0]);
+    //   ge2 = positionStimTwo(loci[1]);
+    //   ge3 = positionStimThree(loci[2]);
+    //   ge4 = positionStimFour(loci[3]);
+    //   ge5 = positionStimFive(loci[4]);
+    //   ge6 = positionStimSix(loci[5]);
+    //   randomEndpoints = chooseCue(ge1, ge2, ge3, ge4, ge5, ge6);
+    //   setTimeout(function() {displayBlank();}, 500);
+    //   setTimeout(function() {positionCue(randomEndpoints);}, 500); 
+    //   setTimeout(function() {displayBlank();}, 500);
+    //   displayProbe();
+    //   //record probed response to database? 
+    //   displayBlank();
+    // }
+     
       // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
-      for (i = 0; i < numTrials; i++) {  
-      setTimeout(function() {displayStim();}, 500); 
+      displayStim();
       loci = linearSpacing(numStim);
       console.log(loci);
       ge1 = positionStimOne(loci[0]);
@@ -300,21 +273,11 @@
       ge5 = positionStimFive(loci[4]);
       ge6 = positionStimSix(loci[5]);
       randomEndpoints = chooseCue(ge1, ge2, ge3, ge4, ge5, ge6);
-      setTimeout(function() {displayBlank();}, 500);
-      setTimeout(function() {positionCue(randomEndpoints);}, 500); 
-      setTimeout(function() {displayBlank();}, 500);
-      displayProbe();
-      //record probed response to database? 
-      displayBlank();
-    }
-      
-}
-    });
-    
-    
+      positionCue(randomEndpoints);
 
-  
-    
+
+    });
+        
    </script>
 
   
