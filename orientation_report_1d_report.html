@@ -13,6 +13,7 @@
     <script type="text/javascript" src='raphael-min.js'></script>
     <script type="text/javascript" src='numeric-1.2.6.min.js'></script>
     <script type="text/javascript" src='helpers.js'></script>
+    <script type="text/javascript" src="https://s3.amazonaws.com/dlcommon/js/detect-zoom-20120627.js"></script>    
     <script type="text/javascript"> 
     // javascript stuff goes here
     $(document).ready(function() {
@@ -35,6 +36,14 @@
       retInterval = 100;
       // delay after cue until response window opens
       delayToResponse = 500;
+
+      // get browser dimensions
+      windowHeight = $(window).height();   // returns height of browser viewport
+      docHeight = $(document).height(); // returns height of HTML document
+      windowWidth = $(window).width();   // returns width of browser viewport
+      docWidth = $(document).width(); // returns width of HTML document
+      browser_dims = [windowHeight,windowWidth,docHeight,docWidth];
+      probeCenter = [windowWidth/2, $('#frame').width()/2];
 
       // initialize global endpoint variables
       ge1 = [];  
@@ -66,10 +75,9 @@
       
       function collectResponse() {
         $("#probeSeg").fadeIn(0);
-        var probeCenter = [350, 350];
         $(document).mousemove(function(e){   
           angle = Math.atan2(e.pageX-probeCenter[0], -(e.pageY-probeCenter[1]))*(180/Math.PI);
-          $('#probeSeg').attr('transform', 'rotate(' + angle + ' 350 350)');
+          $('#probeSeg').attr('transform', 'rotate(' + angle + ' 350 350)');                    
         });         
       }
             
@@ -271,7 +279,6 @@
       // initialize trial sequence
       displayArray();
 
-
     });
         
    </script>
@@ -338,7 +345,7 @@
         <circle id="cue" cx="350" cy="150" r="38" stroke="black" stroke-width="3" fill="none"  style="display:none"/>
       </g>
       <g stroke="black" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlack)">
-       <line id="probeSeg" x1="330" y1="330" x2="370" y2="370" transform="rotate(0  250 50)"  style="display:none"/>
+       <line id="probeSeg" x1="350" y1="370" x2="350" y2="330" transform="rotate(0 0 0)"  style="display:none"/>
       </g>
 
     </svg>
