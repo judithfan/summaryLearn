@@ -2,8 +2,8 @@ TODO:
 Building a single trial...
 (1) arrowheads [CHECK!]
 (2) add other color category (red items) [CHECK!]
-(3) cue sequence (circular frames)
-(4) probe/response (randomly oriented arrow, mouse cursor tracking, click to respond)
+(3) cue sequence (circular frames) [CHECK!]
+(4) probe/response (randomly oriented arrow, mouse cursor tracking, click to respond)[CHECK!]
 Building trial sequence...
 (5) randomizing probe type across trials (blue vs. red, single vs. all)
 Building in phase structure...
