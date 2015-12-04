@@ -26,33 +26,53 @@
       // length of line segment stimuli
       segLen = 40;
       //number of trials
-      numTrials = 50;      
+      numTrials = 50;    
+      // presentation duration of each array
+      presDuration = 1500;
+      // trial counter variable
+      counter = 0;
+      // retention interval after stimulus array offsets (for our purposes, this should be very short!!)
+      retInterval = 100;
+      // delay after cue until response window opens
+      delayToResponse = 500;
 
-      function displayStim() {
-        $('#frame').fadeIn('fast');
-      	$('#stimOne').fadeIn('fast');
-      	$('#stimTwo').fadeIn('fast');
-      	$('#stimThree').fadeIn('fast');
-      	$('#stimFour').fadeIn('fast');
-      	$('#stimFive').fadeIn('fast');
-      	$('#stimSix').fadeIn('fast');
+      // initialize global endpoint variables
+      ge1 = [];  
+      ge2 = [];
+      ge3 = [];
+      ge4 = [];
+      ge5 = [];
+      ge6 = [];
+
+      function displayArray() {        
+         soa = 1000;        
+         setTimeout(function() {positionAllStim();}, 0);
+         ge = positionAllStim();   
+         //$('#frame').delay(soa).show(0).delay(presDuration).hide(0);
+         $('#stimOne').delay(soa).show(0).delay(presDuration).hide(0);
+         $('#stimTwo').delay(soa).show(0).delay(presDuration).hide(0);
+         $('#stimThree').delay(soa).show(0).delay(presDuration).hide(0);
+         $('#stimFour').delay(soa).show(0).delay(presDuration).hide(0);
+         $('#stimFive').delay(soa).show(0).delay(presDuration).hide(0);
+         $('#stimSix').delay(soa).show(0).delay(presDuration).hide(0);
+         setTimeout(function() {displayCue();}, soa+presDuration+retInterval);
+      }
+
+      function displayCue() {
+         positionCue(ge[0]);      
+         $('#cue').show(0);
+         setTimeout(function() {collectResponse();},delayToResponse);
       }
       
-      function displayBlank() {
-        $('#StimOne').fadeOut('fast');
-        $('#StimTwo').fadeOut('fast');
-        $('#StimThree').fadeOut('fast');
-        $('#StimFour').fadeOut('fast');
-        $('#StimFive').fadeOut('fast');
-        $('#StimSix').fadeOut('fast');
-        $('#cue').fadeOut('fast');
+      function collectResponse() {
+        $("#probeSeg").fadeIn(0);
+        var probeCenter = [350, 350];
+        $(document).mousemove(function(e){   
+          angle = Math.atan2(e.pageX-probeCenter[0], -(e.pageY-probeCenter[1]))*(180/Math.PI);
+          $('#probeSeg').attr('transform', 'rotate(' + angle + ' 350 350)');
+        });         
       }
-      
-      function displayProbe() {
-        $("#probeSeg").fadeIn('fast');
-      }
-      
-      
+            
       function sampleOrientation(ns,ub) { 
         // ns = number of stimuli
         // ub = upper bound on range of orientations
@@ -91,8 +111,17 @@
         return [x1, y1, x2, y2];
       }
 
-      // Judy will take those coordinates and apply them to the html elements #stimOne, #stimTwo, # stimThree 
-      // coords = getEndpoints(deg,segLen);
+      // meta position stim function to position all stim
+      function positionAllStim() {
+        loci = linearSpacing(numStim);
+        ge1 = positionStimOne(loci[0]);
+        ge2 = positionStimTwo(loci[1]);
+        ge3 = positionStimThree(loci[2]);
+        ge4 = positionStimFour(loci[3]);
+        ge5 = positionStimFive(loci[4]);
+        ge6 = positionStimSix(loci[5]);
+        return [ge1,ge2,ge3,ge4,ge5,ge6];
+      }
       
       function positionStimOne(l) {
         // local coords taken in, and global coords returned out
@@ -112,7 +141,7 @@
         $("#stimOne").attr('x2',globalEndpoints[2].toString());
         $("#stimOne").attr('y2',globalEndpoints[3].toString());
         $("#stimOne").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
-        return [globalMidpointX,globalMidpointY];
+        return globalEndpoints;
       }
 
       function positionStimTwo(l) {
@@ -133,7 +162,7 @@
         $("#stimTwo").attr('x2',globalEndpoints[2].toString());
         $("#stimTwo").attr('y2',globalEndpoints[3].toString());
         $("#stimTwo").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
-        return [globalMidpointX,globalMidpointY];        
+        return globalEndpoints;        
       }
 
       function positionStimThree(l) {
@@ -154,7 +183,7 @@
         $("#stimThree").attr('x2',globalEndpoints[2].toString());
         $("#stimThree").attr('y2',globalEndpoints[3].toString());
         $("#stimThree").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
-        return [globalMidpointX,globalMidpointY];        
+        return globalEndpoints;        
       }
       
       function positionStimFour(l) {
@@ -175,7 +204,7 @@
         $("#stimFour").attr('x2',globalEndpoints[2].toString());
         $("#stimFour").attr('y2',globalEndpoints[3].toString());
         $("#stimFour").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
-        return [globalMidpointX,globalMidpointY];        
+        return globalEndpoints;        
       }
 
       function positionStimFive(l) {
@@ -196,7 +225,7 @@
         $("#stimFive").attr('x2',globalEndpoints[2].toString());
         $("#stimFive").attr('y2',globalEndpoints[3].toString());
         $("#stimFive").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
-        return [globalMidpointX,globalMidpointY];        
+        return globalEndpoints;        
       }
       
       function positionStimSix(l) {
@@ -217,15 +246,15 @@
         $("#stimSix").attr('x2',globalEndpoints[2].toString());
         $("#stimSix").attr('y2',globalEndpoints[3].toString());
         $("#stimSix").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
-        return [globalMidpointX,globalMidpointY];        
+        return globalEndpoints;        
       }
     
-   	  function positionCue(randomEndpoints) {
-        globalMidpointX = (randomEndpoints[0] + randomEndpoints[2])/2;
-        globalMidpointY = (randomEndpoints[1] + randomEndpoints[3])/2;
+   	  function positionCue(cued) {
+        globalMidpointX = (cued[0] + cued[2])/2;
+        globalMidpointY = (cued[1] + cued[3])/2;
         $("#cue").attr('cx', globalMidpointX.toString());
         $("#cue").attr('cy', globalMidpointY.toString());
-      }
+      }      
         
       function chooseCue(ge1, ge2, ge3, ge4, ge5, ge6) {
     		i = Math.random();
@@ -238,47 +267,9 @@
         return cuedEndpoint;
       }
        
-    // // control memory probe orientation with mouse cursor
-    // // var probe=$("#probeSeg");
-    // var probeCenter=[350, 350];
-    // $(document).mousemove(function(e){   
-    //   var angle = Math.atan2(e.pageX-350, -(e.pageY-350) )*(180/Math.PI); 
-    //   console.log(angle);    
-    //     probe.attr('transform', 'rotate(' + angle + ' 350 350)');          
 
-
-    //   // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
-    //   for (i = 0; i < numTrials; i++) {  
-    //   setTimeout(function() {displayStim();}, 500); 
-    //   loci = linearSpacing(numStim);
-    //   console.log(loci);
-    //   ge1 = positionStimOne(loci[0]);
-    //   ge2 = positionStimTwo(loci[1]);
-    //   ge3 = positionStimThree(loci[2]);
-    //   ge4 = positionStimFour(loci[3]);
-    //   ge5 = positionStimFive(loci[4]);
-    //   ge6 = positionStimSix(loci[5]);
-    //   randomEndpoints = chooseCue(ge1, ge2, ge3, ge4, ge5, ge6);
-    //   setTimeout(function() {displayBlank();}, 500);
-    //   setTimeout(function() {positionCue(randomEndpoints);}, 500); 
-    //   setTimeout(function() {displayBlank();}, 500);
-    //   displayProbe();
-    //   //record probed response to database? 
-    //   displayBlank();
-    // }
-     
-      // TRIAL SEQUENCE EVENT CONTROLLERS BELOW      
-      displayStim();
-      loci = linearSpacing(numStim);
-      ge1 = positionStimOne(loci[0]);
-      ge2 = positionStimTwo(loci[1]);
-      ge3 = positionStimThree(loci[2]);
-      ge4 = positionStimFour(loci[3]);
-      ge5 = positionStimFive(loci[4]);
-      ge6 = positionStimSix(loci[5]);
-      console.log([ge1,ge2,ge3,ge4,ge5,ge6]);      
-      randomEndpoints = chooseCue(ge1, ge2, ge3, ge4, ge5, ge6);
-      // positionCue(randomEndpoints);
+      // initialize trial sequence
+      displayArray();
 
 
     });
@@ -287,7 +278,7 @@
 
   
     <!-- oriented lines -->
-    <div id="frame" style="display:none">
+    <div id="frame">
     <svg width="700" height="700">
 
       <defs>
@@ -325,29 +316,29 @@
       </defs>
 
       <rect x="1" y="1" width="699" height="699" fill="none" stroke="none"/>
-      <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)">
-       <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  350 350)" />
+      <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)" >
+       <line id="stimOne" x1="50" y1="50" x2="150 " y2="50" transform="rotate(0  350 350)" style="display:none"/>
       </g>      
        <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
-       <line id="stimTwo" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
+       <line id="stimTwo" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)"  style="display:none"/>
       </g>
-       <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)">
-       <line id="stimThree" x1="350" y1="50" x2="450" y2="50" transform="rotate(0 400 50)" />
+       <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)" >
+       <line id="stimThree" x1="350" y1="50" x2="450" y2="50" transform="rotate(0 400 50)"  style="display:none"/>
       </g>
-      <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
-       <line id="stimFour" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
+      <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)" >
+       <line id="stimFour" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)"  style="display:none"/>
       </g>
-      <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)">
-       <line id="stimFive" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
+      <g stroke="steelblue" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlue)" >
+       <line id="stimFive" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)"  style="display:none"/>
       </g>
-      <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)">
-       <line id="stimSix" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)" />
+      <g stroke="red" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadRed)" >
+       <line id="stimSix" x1="200" y1="50" x2="300" y2="50" transform="rotate(0  250 50)"  style="display:none"/>
       </g>
-	  <g height="75" width="75">
-        <circle id="cue" cx="350" cy="150" r="38" stroke="black" stroke-width="3" fill="none" />
+	    <g height="75" width="75">
+        <circle id="cue" cx="350" cy="150" r="38" stroke="black" stroke-width="3" fill="none"  style="display:none"/>
       </g>
       <g stroke="black" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlack)">
-       <line id="probeSeg" x1="330" y1="330" x2="370" y2="370" transform="rotate(0  250 50)" />
+       <line id="probeSeg" x1="330" y1="330" x2="370" y2="370" transform="rotate(0  250 50)"  style="display:none"/>
       </g>
 
     </svg>
