@@ -66,7 +66,16 @@
          $('#stimSix').delay(soa).show(0).delay(presDuration).hide(0);
          setTimeout(function() {displayCue();}, soa+presDuration+retInterval);
       }
-
+      
+      function displayGrayCircles() {
+    	$('#grayCircle1').show(0);
+    	$('#grayCircle2').show(0);
+    	$('#grayCircle3').show(0);
+    	$('#grayCircle4').show(0);
+    	$('#grayCircle5').show(0);
+    	$('#grayCircle6').show(0);
+      }
+		
       function displayCue() {
          positionCue(ge[0]);      
          $('#cue').show(0);
@@ -130,6 +139,33 @@
         ge6 = positionStimSix(loci[5]);
         return [ge1,ge2,ge3,ge4,ge5,ge6];
       }
+      
+       function positionGrayCircles(ge1, ge2, ge3, ge4, ge5, ge6) {
+	  	oneMidpointX = (ge1[0] + ge1[2])/2;
+        oneMidpointY = (ge1[1] + ge1[3])/2;
+        $("#grayCircle1").attr('cx', oneMidpointX.toString());
+        $("#grayCircle1").attr('cy', oneMidpointY.toString());
+        twoMidpointX = (ge2[0] + ge2[2])/2;
+        twoMidpointY = (ge2[1] + ge2[3])/2;
+        $("#grayCircle2").attr('cx', twoMidpointX.toString());
+        $("#grayCircle2").attr('cy', twoMidpointY.toString());
+        threeMidpointX = (ge3[0] + ge3[2])/2;
+        threeMidpointY = (ge3[1] + ge3[3])/2;
+        $("#grayCircle3").attr('cx', threeMidpointX.toString());
+        $("#grayCircle3").attr('cy', threeMidpointY.toString());
+        fourMidpointX = (ge4[0] + ge4[2])/2;
+        fourMidpointY = (ge4[1] + ge4[3])/2;
+        $("#grayCircle4").attr('cx', fourMidpointX.toString());
+        $("#grayCircle4").attr('cy', fourMidpointY.toString());
+        fiveMidpointX = (ge5[0] + ge5[2])/2;
+        fiveMidpointY = (ge5[1] + ge5[3])/2;
+        $("#grayCircle5").attr('cx', fiveMidpointX.toString());
+        $("#grayCircle5").attr('cy', fiveMidpointY.toString());
+        sixMidpointX = (ge6[0] + ge6[2])/2;
+        sixMidpointY = (ge6[1] + ge6[3])/2;
+        $("#grayCircle6").attr('cx', sixMidpointX.toString());
+        $("#grayCircle6").attr('cy', sixMidpointY.toString());
+	 }
       
       function positionStimOne(l) {
         // local coords taken in, and global coords returned out
@@ -256,6 +292,7 @@
         $("#stimSix").attr('transform',"rotate(" + deg[0].toString() + " " + globalMidpointX.toString() + " " + globalMidpointY.toString() + ")");
         return globalEndpoints;        
       }
+      
     
    	  function positionCue(cued) {
         globalMidpointX = (cued[0] + cued[2])/2;
@@ -267,7 +304,7 @@
       function chooseCue(ge1, ge2, ge3, ge4, ge5, ge6) {
     		i = Math.random();
     		if      (i < 1/8.0) {cuedEndpoint = ge1;}
-        else if (i < 2/8.0) {cuedEndpoint = ge2;}
+        	else if (i < 2/8.0) {cuedEndpoint = ge2;}
     		else if (i < 3/8.0) {cuedEndpoint = ge3;}
     		else if (i < 4/8.0) {cuedEndpoint = ge4;}
     		else if (i > 5/8.0) {cuedEndpoint = ge5;}
@@ -278,6 +315,8 @@
 
       // initialize trial sequence
       displayArray();
+      displayGrayCircles();
+      positionGrayCircles(ge1, ge2, ge3, ge4, ge5, ge6);
 
     });
         
@@ -343,6 +382,25 @@
       </g>
 	    <g height="75" width="75">
         <circle id="cue" cx="350" cy="150" r="38" stroke="black" stroke-width="3" fill="none"  style="display:none"/>
+      </g>
+        </g>
+	    <g height="75" width="75">
+        <circle id="grayCircle1" cx="350" cy="150" r="38" stroke="gray" stroke-width="3" fill="gray"  style="display:none"/>
+      </g>
+      <g height="75" width="75">
+        <circle id="grayCircle2" cx="350" cy="150" r="38" stroke="gray" stroke-width="3" fill="gray"  style="display:none"/>
+      </g>
+      <g height="75" width="75">
+        <circle id="grayCircle3" cx="350" cy="150" r="38" stroke="gray" stroke-width="3" fill="gray"  style="display:none"/>
+      </g>
+      <g height="75" width="75">
+        <circle id="grayCircle4" cx="350" cy="150" r="38" stroke="gray" stroke-width="3" fill="gray"  style="display:none"/>
+      </g>
+      <g height="75" width="75">
+        <circle id="grayCircle5" cx="350" cy="150" r="38" stroke="gray" stroke-width="3" fill="gray"  style="display:none"/>
+      </g>
+      <g height="75" width="75">
+        <circle id="grayCircle6" cx="350" cy="150" r="38" stroke="gray" stroke-width="3" fill="gray"  style="display:none"/>
       </g>
       <g stroke="black" stroke-width="6" stroke-linecap="round" marker-end="url(#ArrowheadBlack)">
        <line id="probeSeg" x1="350" y1="370" x2="350" y2="330" transform="rotate(0 0 0)"  style="display:none"/>
