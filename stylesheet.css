@@ -58,3 +58,120 @@ h1 {
     overflow:hidden;
     cursor:pointer;
 }
+
+#stimOne {
+	position: relative;
+    left:auto;
+    right:0;   
+    z-index: 2
+}
+
+#stimTwo {
+	position: relative;
+    left:auto;
+    right:0;   
+	z-index: 2
+}
+
+#stimThree {
+	position: relative;
+    left:auto;
+    right:0;   
+	z-index: 2
+}
+
+#stimFour {
+	position: relative;
+    left:auto;
+    right:0;   
+	z-index: 2
+}
+
+#stimFive {
+	position: relative;
+    left:auto;
+    right:0;   
+	z-index: 2
+}
+
+#stimSix {
+	position: relative;
+    left:auto;
+    right:0;   
+	z-index: 2
+}
+
+#cue {
+	position: relative;
+    left:auto;
+    right:0;   
+    width:75px;
+    height:75px;
+	z-index: 2
+}
+
+#probeSeg {
+	position: relative;
+    left:auto;
+    right:0;   
+	z-index: 1
+}
+
+#grayCircle1 {
+	position: relative;
+    left:auto;
+    right:0;   
+    width:75px;
+    height:75px;
+	z-index: 1
+}
+
+#grayCircle2 {
+	position: relative;
+    left:auto;
+    right:0;   
+    width:75px;
+    height:75px;
+	z-index: 1
+}
+
+#grayCircle3 {
+	position: relative;
+    left:auto;
+    right:0;   
+    width:75px;
+    height:75px;
+	z-index: 1
+}
+
+#grayCircle4 {
+	position: relative;
+    left:auto;
+    right:0;   
+    width:75px;
+    height:75px;
+	z-index: 1
+}
+
+#grayCircle5 {
+	position: relative;
+    left:auto;
+    right:0;   
+    width:75px;
+    height:75px;
+	z-index: 1
+}
+
+#grayCircle6 {
+	position: relative;
+    left:auto;
+    right:0;   
+    width:75px;
+    height:75px;
+	z-index: 1
+}
+
+
+
+
+
