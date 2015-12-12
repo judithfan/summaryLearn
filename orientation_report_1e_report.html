@@ -36,6 +36,12 @@
       retInterval = 100;
       // delay after cue until response window opens
       delayToResponse = 500;
+      // inter-trial-interval
+      iti = 1500;
+      // initialize trial counter
+      counter = 0
+      // initialize response object
+      response_angle = [];
 
       // get browser dimensions
       windowHeight = $(window).height();   // returns height of browser viewport
@@ -48,9 +54,8 @@
       // initialize global endpoint variables
       ge = []; 
 
-      function displayArray() {        
+      function displayArray() {       
          soa = 1000;        
-         // setTimeout(function() {positionAllStim();}, 0);
          ge = positionAllStim();  
          positionGrayCircles(ge);
          displayGrayCircles();
@@ -80,11 +85,35 @@
       }
       
       function collectResponse() {
+        responded = 0;
         $("#probeSeg").fadeIn(0);
         $(document).mousemove(function(e){   
           angle = Math.atan2(e.pageX-probeCenter[0], -(e.pageY-probeCenter[1]))*(180/Math.PI);
-          $('#probeSeg').attr('transform', 'rotate(' + angle + ' 350 350)');                    
-        });         
+          $('#probeSeg').attr('transform', 'rotate(' + angle + ' 350 350)');    
+          // $(document).on('click', saveResponseAng(angle));
+          $(document).click(function(x) {
+            if (x.button==0) {
+              saveResponseAng(angle);
+            }
+          })
+        });  
+      }
+
+      function saveResponseAng(angle) { 
+        $(document).off('click');        
+        if (response_angle.length==counter) {
+          console.log('saving response angle!');
+          response_angle.push(angle); 
+          setTimeout(function() {toNextTrial();}, 0);
+        }
+      }
+
+      function toNextTrial() {
+        console.log('to next trial!')
+        $('#probeSeg').hide(0);
+        $('#cue').hide(0);
+        counter++;                 
+        setTimeout(function() {displayArray();}, iti);
       }
             
       function sampleOrientation(ns,ub) { 
@@ -127,7 +156,9 @@
 
       // meta position stim function to position all stim
       function positionAllStim() {
-        loci = linearSpacing(numStim);
+        if (counter==0) {
+          loci = linearSpacing(numStim);
+        }
         ge1 = positionStimOne(loci[0]);
         ge2 = positionStimTwo(loci[1]);
         ge3 = positionStimThree(loci[2]);
@@ -311,7 +342,9 @@
        
 
       // initialize trial sequence
-      displayArray();
+      if (counter==0) {
+         displayArray();
+      }
 
     });
         
